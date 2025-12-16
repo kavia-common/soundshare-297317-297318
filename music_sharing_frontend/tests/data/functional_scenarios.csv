@@ -1,0 +1,19 @@
+Test Case ID,Feature/Module,Test Description,Expected Result
+TC-01,User Interface,Verify that the homepage loads successfully.,Homepage displays without errors.
+TC-02,User Interface,"Check that the navigation bar displays all expected links (Home, Explore, Upload, Profile, etc.).",Navigation bar shows all required links.
+TC-03,User Interface,Ensure the search bar is visible and functional.,Search bar is present and accepts input.
+TC-04,Audio Playback,Test that clicking on a track starts playback.,Track audio starts playing.
+TC-05,Audio Playback,Verify that the play/pause button works as expected.,Audio toggles between play and pause.
+TC-06,Audio Playback,Check that the progress bar updates as the track plays.,Progress bar moves as audio plays.
+TC-07,Audio Playback,Ensure volume control adjusts the audio output.,Volume changes as slider is moved.
+TC-08,Track Listing & Details,Verify that a list of tracks is displayed on the main page.,Track list is visible with multiple tracks.
+TC-09,Track Listing & Details,Check that clicking a track opens its detail page/modal.,Track detail page/modal opens with info.
+TC-10,Track Listing & Details,"Ensure track details (title, artist, duration, cover art) are displayed correctly.",All track details are shown accurately.
+TC-11,User Actions,Test that users can like/favorite a track.,Track is marked as liked/favorited.
+TC-12,User Actions,Verify that users can follow/unfollow artists.,Artist follow/unfollow state updates.
+TC-13,User Actions,Check that users can upload a new track (if upload is supported on frontend).,Track upload UI works and shows success.
+TC-14,Search & Filtering,Ensure searching for a track/artist returns relevant results.,Search results match query.
+TC-15,Search & Filtering,"Test filtering tracks by genre, popularity, or upload date.",Track list updates according to filter.
+TC-16,Responsiveness,"Verify the app layout adapts correctly to different screen sizes (desktop, tablet, mobile).",Layout adjusts and remains usable on all devices.
+TC-17,Error Handling,Check that an error message is shown if a track fails to load.,User sees a clear error message.
+TC-18,Error Handling,Ensure the app handles missing or broken images gracefully.,Default or placeholder image is shown.

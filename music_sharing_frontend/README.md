@@ -61,7 +61,13 @@ npm run test:e2e:report
 
 - CSV files live under `tests/data/`
 - CSV parsing utility: `tests/utils/csv.js`
-- Example CSV-driven test: `tests/homepage.spec.js` reads `tests/data/homepage_checks.csv`
+- **Functional Scenarios**: `tests/functional.spec.js` reads `tests/data/functional_scenarios.csv` to run the main application test suite.
+- **Smoke Checks**: `tests/homepage.spec.js` reads `tests/data/homepage_checks.csv`.
+
+To run only the functional scenarios:
+```bash
+npx playwright test functional.spec.js
+```
 
 You can add new test rows (or new CSV files) to expand coverage without duplicating test code.
 
