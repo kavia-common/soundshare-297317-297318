@@ -31,7 +31,7 @@ test.describe('Audio Playback', () => {
     // Check if progress bar exists.
     // In PlayerDock.js, WaveformSeekbar is used.
     // We check for the canvas element inside .dock
-    const waveform = page.locator('.dock canvas');
+    const waveform = page.locator('.dock .wave');
     await expect(waveform).toBeVisible();
     
     // Verify it exists in the DOM, implying it's rendered for the playing track

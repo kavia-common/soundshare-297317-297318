@@ -8,7 +8,7 @@ test.describe('User Actions', () => {
   test('TC-11: Like/Favorite', async ({ page }) => {
     // Find a like button on a track card.
     // TrackCard: aria-label={isLiked ? "Unlike" : "Like"}
-    const likeButton = page.locator('button[aria-label="Like"]').first();
+    const likeButton = page.getByRole('button', { name: /Like|Unlike/ }).first();
     await expect(likeButton).toBeVisible();
     await likeButton.click();
     
