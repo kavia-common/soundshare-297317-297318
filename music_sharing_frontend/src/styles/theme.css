@@ -1,0 +1,52 @@
+:root {
+  /* Power Red */
+  --pr-primary: #ef4444;
+  --pr-secondary: #f59e0b;
+  --pr-success: #10b981;
+  --pr-error: #ef4444;
+
+  /* Surfaces */
+  --pr-bg: #0b0b10;           /* dark canvas */
+  --pr-surface: #12121a;      /* cards */
+  --pr-surface-2: #171723;    /* elevated */
+  --pr-border: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --pr-text: #f9fafb;
+  --pr-text-muted: rgba(249, 250, 251, 0.72);
+  --pr-text-faint: rgba(249, 250, 251, 0.52);
+
+  /* Shadows */
+  --pr-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  /* Radii */
+  --pr-radius-sm: 10px;
+  --pr-radius-md: 14px;
+  --pr-radius-lg: 18px;
+
+  /* Layout */
+  --sidebar-w: 260px;
+  --topbar-h: 64px;
+  --player-h: 92px;
+
+  /* Focus */
+  --pr-focus: 0 0 0 3px rgba(239, 68, 68, 0.35);
+
+  /* Typography */
+  --pr-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+[data-theme="light"] {
+  /* Optional: keep a light variant if needed later */
+  --pr-bg: #f9fafb;
+  --pr-surface: #ffffff;
+  --pr-surface-2: #ffffff;
+  --pr-border: rgba(17, 24, 39, 0.10);
+
+  --pr-text: #111827;
+  --pr-text-muted: rgba(17, 24, 39, 0.70);
+  --pr-text-faint: rgba(17, 24, 39, 0.50);
+
+  --pr-shadow: 0 10px 30px rgba(17, 24, 39, 0.10);
+}
