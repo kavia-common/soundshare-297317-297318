@@ -68,14 +68,7 @@ export function TrackCard({ track, compact = false }) {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => {
-              if (isCurrent) player.toggleLike();
-              else {
-                // like without switching track: store in liked map
-                player.state.liked = player.state.liked || {};
-                player.ui.openShare(track.id); // optional discovery; keep minimal side-effects
-              }
-            }}
+            onClick={() => player.toggleLike(track.id)}
             aria-label={isLiked ? "Unlike" : "Like"}
             className={isLiked ? "isLiked" : ""}
           >

@@ -1,36 +1,27 @@
-const fs = require("node:fs/promises");
+const fs = require("node:fs");
 const path = require("node:path");
 const Papa = require("papaparse");
 
-/**
- * PUBLIC_INTERFACE
- * Reads a CSV file and returns an array of objects (header row -> keys).
- *
- * - Trims values
- * - Skips empty lines
- * - Throws on parse errors
- *
- * @param {string} relativePath - Path relative to the tests/ directory OR an absolute path.
- * @returns {Promise<Record<string, string>[]>} Parsed rows.
- */
 function toCamelCase(str) {
   return str
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
 }
 
-async function readCsvRecords(relativePath) {
-  /** Read and parse CSV records for data-driven tests. */
+function readCsvRecords(relativePath) {
   const resolved = path.isAbsolute(relativePath)
     ? relativePath
     : path.resolve(__dirname, "..", relativePath);
 
-  const csvText = await fs.readFile(resolved, "utf8");
+  const csvText = fs.readFileSync(resolved, "utf8");
 
   const parsed = Papa.parse(csvText, {
     header: true,
     skipEmptyLines: true,
-    transformHeader: (h) => toCamelCase((h || "").trim()),
+    transformHeader: (h) => {
+        // console.log(`Header input: "${h}"`);
+        return toCamelCase((h || "").trim());
+    },
     transform: (v) => (typeof v === "string" ? v.trim() : v),
   });
 

@@ -378,9 +378,9 @@ export function useAudioPlayer({ getTrackById }) {
     }, 0);
   }, [ensureAudio, next, state.loopMode]);
 
-  const toggleLike = useCallback(() => {
+  const toggleLike = useCallback((targetId) => {
     setState((s) => {
-      const id = s.currentId;
+      const id = (typeof targetId === "string" ? targetId : s.currentId);
       if (!id) return s;
       const liked = { ...s.liked, [id]: !s.liked[id] };
       return { ...s, liked };

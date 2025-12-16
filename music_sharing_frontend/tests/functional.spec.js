@@ -2,15 +2,15 @@ const { test, expect } = require("@playwright/test");
 const { readCsvRecords } = require("./utils/csv");
 
 test.describe("CSV-driven Functional Scenarios", () => {
-  // Placeholder for structure
-});
-
-// Dynamically register tests based on the CSV content
-(async () => {
-  const records = await readCsvRecords("data/functional_scenarios.csv");
+  const records = readCsvRecords("data/functional_scenarios.csv");
 
   for (const record of records) {
-    const { testCaseId, featureModule, testDescription, expectedResult } = record;
+    // Handle potential casing issues from CSV parser
+    const testCaseId = record.testCaseId || record.testcaseid;
+    const featureModule = record.featureModule || record.featuremodule;
+    const testDescription = record.testDescription || record.testdescription;
+    const expectedResult = record.expectedResult || record.expectedresult;
+    
     const title = `[${testCaseId}] ${featureModule}: ${testDescription}`;
 
     test(title, async ({ page, isMobile }) => {
@@ -27,9 +27,6 @@ test.describe("CSV-driven Functional Scenarios", () => {
 
         case 'TC-02': // Nav bar
           if (isMobile) {
-            // On mobile sidebar is hidden, verify logic differently if needed
-            // For now, let's assume this test focuses on desktop or visible nav
-            // Or skip if mobile
             test.skip(isMobile, 'Sidebar hidden on mobile');
           }
           await expect(page.locator('aside.sidebar')).toBeVisible();
@@ -45,18 +42,16 @@ test.describe("CSV-driven Functional Scenarios", () => {
           break;
 
         case 'TC-04': // Playback start
-          // Click play on first track in list
           await page.locator('.trackCard .btn-primary').first().click();
-          await expect(page.locator('.playBtn')).toHaveText('⏸'); // Check dock shows pause
+          await expect(page.locator('.playBtn')).toHaveText('⏸');
           break;
 
         case 'TC-05': // Play/Pause toggle
-          await page.locator('.trackCard .btn-primary').first().click(); // Start
+          await page.locator('.trackCard .btn-primary').first().click();
           await expect(page.locator('.playBtn')).toHaveText('⏸');
-          await page.locator('.playBtn').click(); // Pause
+          await page.locator('.playBtn').click();
           await expect(page.locator('.playBtn')).toHaveText('▶');
           break;
-
         case 'TC-06': // Progress bar
           await expect(page.locator('.seekWrap')).toBeVisible();
           await expect(page.locator('.seekTime').first()).toBeVisible();
@@ -64,19 +59,16 @@ test.describe("CSV-driven Functional Scenarios", () => {
 
         case 'TC-07': // Volume control
           await expect(page.locator('.volRange')).toBeVisible();
-          // Try to change value
           await page.locator('.volRange').fill('0.5');
           break;
 
         case 'TC-08': // Track listing
           await expect(page.locator('.trackCard')).toHaveCount(await page.locator('.trackCard').count());
-          // Ensure at least one
           const count = await page.locator('.trackCard').count();
           expect(count).toBeGreaterThan(0);
           break;
 
         case 'TC-09': // Track detail
-          // Using Share sheet as detail modal proxy since explicit detail modal isn't linked in main flow
           await page.locator('button[aria-label*="Share"]').first().click();
           await expect(page.locator('.sheet')).toBeVisible();
           await expect(page.locator('.sheetTitle')).toHaveText('Share');
@@ -88,9 +80,8 @@ test.describe("CSV-driven Functional Scenarios", () => {
           await expect(card.locator('.trackArtist')).toBeVisible();
           await expect(card.locator('.trackDuration')).toBeVisible();
           break;
-
         case 'TC-11': // Like track
-          const likeBtn = page.locator('button[aria-label="Like"]').first();
+          const firstCard = page.locator('.trackCard').first(); const likeBtn = firstCard.locator('.trackActions button').last();
           await likeBtn.click();
           await expect(likeBtn).toHaveClass(/isLiked/);
           break;
@@ -106,23 +97,19 @@ test.describe("CSV-driven Functional Scenarios", () => {
         case 'TC-14': // Search results
           const searchInput = page.locator('input[placeholder*="Search"]');
           await searchInput.fill('Neon');
-          // Expect filtering to happen
           await expect(page.locator('.trackTitle').first()).toContainText('Neon');
           break;
 
         case 'TC-15': // Filter
           await page.goto('/explore');
           await page.locator('select[aria-label="Filter by tag"]').selectOption('electronic');
-          // Verify filtered result
           await expect(page.locator('.tag').first()).toHaveText('#electronic');
           break;
 
         case 'TC-16': // Responsiveness
           await page.setViewportSize({ width: 375, height: 667 });
           await page.goto('/');
-          // Sidebar should be hidden
           await expect(page.locator('.sidebar')).toBeHidden();
-          // Topbar should still be visible
           await expect(page.locator('.topbar')).toBeVisible();
           break;
 
@@ -139,6 +126,4 @@ test.describe("CSV-driven Functional Scenarios", () => {
       }
     });
   }
-})().catch((e) => {
-  console.error("Error generating CSV tests:", e);
 });
