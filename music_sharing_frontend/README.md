@@ -27,6 +27,44 @@ Launches the test runner in interactive watch mode.
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
+## E2E Testing (Playwright + CSV data)
+
+This repo includes Playwright end-to-end tests that can be driven by CSV data files.
+
+### Install Playwright browsers
+
+From `music_sharing_frontend/`:
+
+```bash
+npm install
+npx playwright install --with-deps
+```
+
+### Run E2E tests
+
+```bash
+npm run test:e2e
+```
+
+This will:
+- start the CRA dev server (`npm start`) automatically
+- run Playwright tests in `./tests`
+- generate an HTML report in `./playwright-report`
+
+### View the HTML report
+
+```bash
+npm run test:e2e:report
+```
+
+### CSV-driven tests
+
+- CSV files live under `tests/data/`
+- CSV parsing utility: `tests/utils/csv.js`
+- Example CSV-driven test: `tests/homepage.spec.js` reads `tests/data/homepage_checks.csv`
+
+You can add new test rows (or new CSV files) to expand coverage without duplicating test code.
+
 ## Customization
 
 ### Colors

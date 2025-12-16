@@ -1,0 +1,4 @@
+caseName,route,expectText
+Home page shows brand and navigation,/,"SoundShare"
+Explore page route renders title,/explore,"Explore"
+Library page route renders title,/library,"Library"
