@@ -236,18 +236,23 @@ export function useAudioPlayer({ getTrackById }) {
 
   const pause = useCallback(() => {
     const audio = ensureAudio();
+    // IMPORTANT: Always invoke pause() directly. We rely on the audio element's native
+    // "pause" event to sync `state.isPlaying` back to false.
     audio.pause();
   }, [ensureAudio]);
 
   const togglePlay = useCallback(() => {
-    setState((s) => {
-      const willPlay = !s.isPlaying;
-      return s;
-    });
-    const audio = ensureAudio();
-    if (audio.paused) play();
-    else pause();
-  }, [ensureAudio, pause, play]);
+    // Root cause fix:
+    // We should NOT branch on `audio.paused` here because it can be stale in React event
+    // handlers (especially around rapid play->pause clicks or when play() hasn't resolved yet).
+    // Instead, we branch on our single source of truth: `state.isPlaying`,
+    // which is driven by the audio element "play"/"pause" events.
+    if (state.isPlaying) {
+      pause();
+      return;
+    }
+    play();
+  }, [pause, play, state.isPlaying]);
 
   const seekTo = useCallback(
     (timeSec) => {
