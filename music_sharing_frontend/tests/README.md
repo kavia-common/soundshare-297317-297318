@@ -43,5 +43,10 @@ npx playwright show-report
 - **tracks.spec.js**: Covers track listing, detailed views (card details), search functionality, and filtering.
 - **actions.spec.js**: Covers user actions such as Liking tracks and validates handling of static assets (images).
 
+## Test Artifacts
+Screenshots, videos, and traces for all tests are generated automatically.
+- **Raw artifacts**: stored in the `test-results/` directory.
+- **HTML Report**: run `npx playwright show-report` (or open `playwright-report/index.html`) to interactively view traces, screenshots, and videos.
+
 ## Note
 Some tests (TC-12, TC-13, TC-17) are marked as skipped as the corresponding features are not yet implemented in the frontend.
